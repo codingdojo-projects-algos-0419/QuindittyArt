@@ -34,10 +34,6 @@ class Post(db.Model):
     @classmethod
     def validate(cls, form):
         errors = []
-        if len(form['author']) > 255:
-            errors.append("Author cannot exceed 255 characters in length.")
-        if len(form['author']) < 3:
-            errors.append("Author mush consist of at least 3 characters.")
         if len(form['content']) > 400:
             errors.append("Post cannot exceed 400 characters in length.")
         if len(form['content']) < 10:
@@ -56,5 +52,3 @@ class Post(db.Model):
         if not user_ids:
             return cls.query.order_by(cls.created_at.desc()).all()
         return cls.query.filter(cls.user_id.in_(user_ids)).order_by(cls.created_at.desc()).all()
-
-    

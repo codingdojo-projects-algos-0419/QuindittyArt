@@ -8,3 +8,5 @@ app.add_url_rule('/users/logout', view_func=users.logout, endpoint="users:logout
 app.add_url_rule('/users/<user_id>', view_func=users.users_quotes, endpoint='users:users_quotes')
 app.add_url_rule('/users/<user_id>/edit', view_func=users.edit, endpoint='users:edit', methods=['POST','GET'])
 app.add_url_rule('/users/<user_id>/editing', view_func=users.editing, endpoint='users:editing', methods=['POST', 'GET'])
+app.add_url_rule('/admin_page', view_func=users.admin_page, endpoint='admin_page')
+app.add_url_rule('/admin_lvl_increase/<user_id>', view_func=users.admin_lvl_increase, endpoint='admin_lvl_increase')

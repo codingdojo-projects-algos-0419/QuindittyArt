@@ -1,6 +1,7 @@
 from sqlalchemy.sql import func
 from config import db, bcrypt
 from server.models.likes_table import likes_table
+from server.models.comments_table import comments_table
 from server.models.quotes import Post
 
 
@@ -19,6 +20,7 @@ class User(db.Model):
         db.DateTime, server_default=func.now(), onupdate=func.now()
     )
     posts_this_user_likes = db.relationship('Post', secondary=likes_table)
+    comments_this_user_commented = db.relationship('Post', secondary=comments_table)
     
     def __repr__(self):
         return "<User: %s>" % self.username

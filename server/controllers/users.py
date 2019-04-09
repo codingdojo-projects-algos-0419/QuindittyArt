@@ -28,13 +28,13 @@ def logout():
     session.clear()
     return redirect(url_for("users:new"))
 
-def users_quotes(user_id):
-    user = User.query.get(user_id)
-    quotes = Quote.query.filter_by(user_id=user_id)
-    possesive = "'"
-    if user.last_name[len(user.last_name)-1] != 's':
-        possesive = "'s"
-    return render_template('users_quotes.html', user=user, quotes=quotes, possesive=possesive)
+def post(post_id):
+    user = User.query.get(session['user_id'])
+    post = Post.query.filter_by(id=post_id)
+    return render_template('post.html', user=user, post=post)
+
+def comment(post_id):
+    user = 
 
 def edit(user_id):
     user = User.query.get(user_id)
