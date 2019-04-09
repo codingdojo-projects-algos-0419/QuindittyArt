@@ -1,0 +1,28 @@
+{% extends './layout.html' %}
+{% block title %}Quotes Page{% endblock %}
+{% block body %}
+<div class="wrapper">
+    <div class="header">
+        <div class="header_right">
+            <a href="{{url_for('quote_list')}}">Back</a>
+            <a href="{{url_for('users:logout')}}" class="button">Logout</a>
+        </div>
+    </div>
+    <div class="quote_list">
+        <h5>{{user['first_name']}} {{user['last_name']}}{{possesive}} Quotes</h5>
+        {% for quote in quotes %}
+            <div class="quote">
+                <p>{{quote['author']}}: "{{quote['content']}}"</p><br>
+                <p>{{quote.likes()}} people like this</p>
+                {% if session['user_id'] != quote['user_id'] %}
+                <a href="quotes/{{quote['id']}}/like" class="button">Like</a></td>
+                {% endif %}
+                {% if session['user_id'] == quote['user_id'] %}
+                <p><a href="quotes/{{quote['id']}}/delete">Delete</a></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>  
+</div>
+
+{% endblock %}

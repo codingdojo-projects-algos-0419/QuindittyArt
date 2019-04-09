@@ -1,0 +1,85 @@
+.error {
+  color: red;
+}
+.wrapper {
+  width: 970px;
+  height: auto;
+}
+.header {
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  width: 970px;
+  height: auto;
+  font-size: 1.25em;
+}
+
+  .header_right {
+    margin-left: auto;
+    margin-right: 0px;
+  }
+
+  .header h5 {
+    margin: 30px 10px 10px 60px;
+  }
+
+.quote_list {
+  width: 500px;
+  height: auto;
+  margin: 10px;
+  padding: 10px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+
+}
+  .quote {
+    width: 400px;
+    border: solid 1px black;
+    margin: 10px auto;
+    padding: 10px;
+  }
+
+    .quote p {
+      margin: 0px;
+      padding: 0px;
+      text-align: start;
+    }
+
+
+  .button {
+    background-color: #e9e9e9;
+    color: black;
+    padding: 4px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: solid rgb(43, 43, 43) 1px;
+    margin: 4px 2px;
+  }
+
+.quote_form {
+  margin: 10px 10px 10px 130px;
+  padding: 10px;
+  width: 300px;
+  text-align-last: right; 
+  display: inline-block;
+}
+  .quote_form h6 {
+    text-align: center;
+    text-align-last: center;
+  }
+
+
+#stats {
+  margin: 10px;
+  padding: 10px;
+}
+
+.edit_form {
+  width: 400px;
+  margin: 10px;
+  padding: 10px;
+  text-align-last: right;
+}

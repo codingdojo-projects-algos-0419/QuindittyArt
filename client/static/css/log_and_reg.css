@@ -1,0 +1,38 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.wrapper {
+  text-align: center;
+  width: 970px;
+}
+
+.header {
+  padding: 10px;
+  margin: 10px;
+}
+
+.forms_container {
+  display: flex;
+  width: 970px;
+  height: auto;
+  border: solid black 1px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.error {
+  color: red;
+}
+
+.form_container {
+  width: 300px;
+  height: auto;
+  display: inline-block;
+  vertical-align: top;
+  text-align-last: right;
+}
+
+h1 {
+  text-align: center;
+}
