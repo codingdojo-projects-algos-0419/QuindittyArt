@@ -1,0 +1,23 @@
+{% extends './layout.html' %}
+{% block title %}Admin Page{% endblock %}
+{% block body %}
+<div class="wrapper">
+  <div class='header'>
+    <div class="header_right">
+      <a href="{{ url_for('dashboard')}}">Back</a>
+      <a href="{{url_for('users:logout')}}">Logout</a>
+    </div><br>
+  </div>
+  <div class="new_post">
+    <form action="{{url_for('posts:create')}}" enctype=multipart/form-data method="post">
+      <label for="title">Title: </label>
+      <input type="text" name="title" required>
+      <label for="content">Upload File: </label>
+      <input type="file" name="content" required>
+      <label for="text_content">Text: </label>
+      <textarea name="text_content"cols="30" rows="10" required></textarea>
+      <input type="submit" value="Post">
+    </form>
+  </div>
+</div>
+{% endblock %}

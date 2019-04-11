@@ -8,8 +8,6 @@ from server.models.quotes import Post
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(255), nullable=False)
-    last_name = db.Column(db.String(255), nullable=False)
     username = db.Column(db.String(255), nullable=False)
     pw_hash = db.Column(db.String(255), nullable=False)
     admin_lvl = db.Column(db.Integer, nullable=False, default=1)
@@ -54,8 +52,6 @@ class User(db.Model):
     def create(cls, form):
         pw_hash = bcrypt.generate_password_hash(form['password'])
         user = cls(
-            first_name=form['first_name'],
-            last_name=form['last_name'],
             username=form['username'],
             pw_hash=pw_hash,
         )
@@ -72,4 +68,7 @@ class User(db.Model):
         return (False, "Username or password incorrect.")
 
     def admin_lvl_increase(self):
-        self.admin_lvl =2;
+        self.admin_lvl = 2;
+
+    def admin_lvl_decrease(self):
+        self.admin_lvl = 1;

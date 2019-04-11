@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
+  <title>Login and Registration</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/log_and_reg.css') }}">
 </head>
@@ -28,8 +28,8 @@
           <input type="text" name="first_name" placeholder="First Name"><br>
           <label for="last_name">Last Name:</label>
           <input type="text" name="last_name" placeholder="Last Name"><br>
-          <label for="email">Email:</label>
-          <input type="text" name="email" placeholder="Email"><br>
+          <label for="username">Username:</label>
+          <input type="text" name="username" placeholder="Username"><br>
           <label for="password">Password:</label>
           <input type="password" name="password" placeholder="Password"><br>
           <label for="confirm">Confirm PW:</label>
@@ -40,8 +40,8 @@
       <div class="form_container">
         <h2>Login</h2>
         <form action="{{ url_for('users:login') }}" method="post">
-          <label for="email">Email:</label>
-          <input type="text" name="email" placeholder="Email"><br>
+          <label for="username">Username:</label>
+          <input type="text" name="username" placeholder="Username"><br>
           <label for="password">Password:</label>
           <input type="password" name="password" placeholder="Password"><br>
           <input type="submit" value="Login">

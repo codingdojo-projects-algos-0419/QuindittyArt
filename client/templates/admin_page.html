@@ -1,0 +1,41 @@
+{% extends './layout.html' %}
+{% block title %}Admin Page{% endblock %}
+{% block body %}
+<div class="wrapper">
+  <div class='header'>
+    <h5>Welcome {{user['username']}}!</h5>
+    <div class="header_right">
+      <a href="{{ url_for('users:edit', user_id=user['id'])}}">My Account</a>
+      <a href="{{url_for('users:logout')}}">Logout</a>
+    </div><br>
+  </div>
+  <div class="user_list">
+    <table>
+      <th>
+        <tr>
+          <td>User ID</td>
+          <td>Username</td>
+          <td>Actions</td>
+        </tr>
+      </th>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td>{{user['id']}}</td>
+            <td>{{user['username']}}</td>
+            <td>
+              {% if user['admin_lvl'] == 1 %}
+                <a href="{{url_for('users:admin_lvl_increase', user_id=user['id'])}}">Make admin</a>
+                {% else %}
+                  <a href="{{url_for('users:admin_lvl_decrease', user_id=user['id']}}"></a>
+              {% endif %}
+              <a href="{{url_for('users:delete', user_id=user['id'])}}">Delete user</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form action="{{url_for('dashboard'" method="post"></form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends './layout.html' %}
+{% block title %}{{post['title']}}{% endblock %}
+{% block body %}
+<div class="wrapper">
+  <div class='header'>
+    <h5>Welcome {{user['username']}}!</h5>
+    <div class="header_right">
+      <a href="{{ url_for('dashboard')}}">My Account</a>
+      <a href="{{url_for('users:logout')}}">Logout</a>
+    </div><br>
+  </div>
+  <div></div>
+</div>
+{% endblock %}

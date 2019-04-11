@@ -1,6 +1,7 @@
 from sqlalchemy.sql import func
 from config import db
 from server.models.likes_table import likes_table
+from server.models.images import Image
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -8,9 +9,8 @@ class Post(db.Model):
     user_id = db.Column(
         db.Integer, db.ForeignKey("users.id"), nullable=False
     )
-    author = db.Column(db.String(255), nullable=False)
+    image_filename = db.Column(db.Text, nullable=False)
     text_content = db.Column(db.Text, nullable=False)
-    picture_content = db.Column(db.)
     created_at = db.Column(
         db.DateTime, server_default=func.now()
     )
@@ -23,6 +23,14 @@ class Post(db.Model):
             )
     )
     users_who_like_this_post = db.relationship('User', secondary=likes_table, cascade='all')
+    users_who_commented_on_this_post = db.relationship('User', secondary=comments_table, cascade='all')
+
+    def not_liked(self):
+        user = User.query.get(session['user_id'])
+        if user in self.user_who_like_this_post:
+            return False
+        else:
+            return True
 
     def likes(self):
         likes = 0 
@@ -32,17 +40,23 @@ class Post(db.Model):
         return likes
 
     @classmethod
-    def validate(cls, form):
+    def validate(cls, form, filename):
         errors = []
-        if len(form['content']) > 400:
-            errors.append("Post cannot exceed 400 characters in length.")
-        if len(form['content']) < 10:
-            errors.append("Post mush consist of at least 10 characters.")
+        if len(form['title']) > 255:
+            errors.append("Title cannot exceed 255 characters in length.")
+        if len(form['title']) <= 2:
+            errors.append("Title mush consist of at least 2 characters.")
+        if len(filename) > 400:
+            errors.append("filename cannot exceed 400 characters in length.")
+        if len(form['text_content']) > 500:
+            errors.append("Post cannot exceed 500 characters in length.")
+        if len(form['text_content']) < 3:
+            errors.append("Post mush consist of at least 3 characters.")
         return errors
 
     @classmethod
-    def create(cls, form, user_id):
-        post = cls(author=form['author'], content=form['content'],  user_id=user_id)
+    def create(cls, form, filename, user_id):
+        post = cls(title=form['title'], text_content=form['text_content'], filename=filename,  user_id=user_id)
         db.session.add(post)
         db.session.commit()
 

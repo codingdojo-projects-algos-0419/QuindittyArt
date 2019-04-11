@@ -5,6 +5,8 @@
 .wrapper {
   text-align: center;
   width: 970px;
+  background-image: url('../images/{{background.filename}}');
+  background-attachment: fixed;
 }
 
 .header {

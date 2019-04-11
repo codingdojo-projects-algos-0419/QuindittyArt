@@ -4,6 +4,8 @@
 .wrapper {
   width: 970px;
   height: auto;
+  background-image: url('../images/{{background.filename}}');
+  background-attachment: fixed;
 }
 .header {
   margin: 10px;

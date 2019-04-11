@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, session, url_for, flash
 from sqlalchemy import func
-from server.models.quotes import Quote
+from server.models.posts import Post
 from server.models.users import User
 
 def new():
@@ -47,20 +47,7 @@ def editing(user_id):
         for error in errors:
                 flash(error)
         return redirect(url_for('users:edit'))
-    user.first_name = request.form['first_name']
-    user.last_name = request.form['last_name']
-    user.email = request.form['email']
+    user.username = request.form['username']
     db.session.commit()
     return redirect(url_for('dashboard'))
 
-def admin_page():
-    user = session['user_id']
-    if user.admin_lvl == 2:
-        users = User.query.get().all()
-    return redirect(url_for('dashboard'))
-
-
-def admin_lvl_increase(user_id):
-    user = User.query.get(user_id)
-    user.admin_lvl_increase()
-    return redirect(url_for('admin_page'))
