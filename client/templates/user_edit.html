@@ -5,7 +5,7 @@
     <div class="header">
         <h5>Edit My Account</h5>
         <div class="header_right">
-        <a href="{{url_for('quote_list')}}">Back</a>
+        <a href="{{url_for('dashboard')}}">Back</a>
         <a href="{{url_for('users:logout')}}" class="button">Logout</a>
         </div>
         {% with messages = get_flashed_messages() %}
@@ -19,11 +19,16 @@
         {% endwith %}
     </div>
     <div class='edit_form'>
+      <h5>Edit your username</h5>
       <form action="editing" method="post">
         <label for="username">Username</label>
         <input type="text" name="username" value="{{user['username']}}" required><br>
         <input type="submit" value="Update">
       </form>
+    </div>
+    <div class='comments'>
+      <h5>Your comments</h5>
+      
     </div>
   </div>
 {% endblock %}

@@ -3,9 +3,9 @@ from config import db
 
 likes_table=db.Table('likes',
     db.Column(
-        'quote_id',
+        'post_id',
         db.Integer,db.ForeignKey(
-            'quotes.id', ondelete="cascade"
+            'posts.id', ondelete="cascade"
         ),
         primary_key=True
     ),
@@ -16,5 +16,9 @@ likes_table=db.Table('likes',
     db.Column(
         'created_at', db.DateTime,
         server_default=func.now()
+    ),
+    db.Column(
+        'updated_at', db.DateTime,
+        server_default=func.now(), onupdate=func.now()
     )
 )

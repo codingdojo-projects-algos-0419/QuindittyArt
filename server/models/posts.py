@@ -1,7 +1,7 @@
 from sqlalchemy.sql import func
 from config import db
 from server.models.likes_table import likes_table
-from server.models.images import Image
+from server.models.comments_table import Comment
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -9,7 +9,8 @@ class Post(db.Model):
     user_id = db.Column(
         db.Integer, db.ForeignKey("users.id"), nullable=False
     )
-    image_filename = db.Column(db.Text, nullable=False)
+    title = db.Column(db.String(255), nullable=False)
+    filename = db.Column(db.Text, nullable=False)
     text_content = db.Column(db.Text, nullable=False)
     created_at = db.Column(
         db.DateTime, server_default=func.now()
@@ -22,8 +23,8 @@ class Post(db.Model):
             "posts", cascade="all, delete-orphan"
             )
     )
+    post_comments = db.relationship('Comment', back_populates='post')
     users_who_like_this_post = db.relationship('User', secondary=likes_table, cascade='all')
-    users_who_commented_on_this_post = db.relationship('User', secondary=comments_table, cascade='all')
 
     def not_liked(self):
         user = User.query.get(session['user_id'])

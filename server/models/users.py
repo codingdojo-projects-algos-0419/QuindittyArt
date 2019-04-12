@@ -1,8 +1,8 @@
 from sqlalchemy.sql import func
 from config import db, bcrypt
 from server.models.likes_table import likes_table
-from server.models.comments_table import comments_table
-from server.models.quotes import Post
+from server.models.comments_table import Comment
+from server.models.posts import Post
 
 
 class User(db.Model):
@@ -17,9 +17,10 @@ class User(db.Model):
     updated_at = db.Column(
         db.DateTime, server_default=func.now(), onupdate=func.now()
     )
+    users_comments = db.relationship('Comment', back_populates='user')
     posts_this_user_likes = db.relationship('Post', secondary=likes_table)
-    comments_this_user_commented = db.relationship('Post', secondary=comments_table)
-    
+
+
     def __repr__(self):
         return "<User: %s>" % self.username
 
@@ -29,11 +30,7 @@ class User(db.Model):
     @classmethod
     def validate(cls, form):
         errors = []
-        if len(form['first_name']) < 2:
-            errors.append("First name must be at least 2 characters long.")
-        if len(form['last_name']) < 2:
-            errors.append("Last name must be at least 2 characters long.")
-        existing_username = cls.query.filter_by(email=form['username']).first()
+        existing_username = cls.query.filter_by(username=form['username']).first()
         if existing_username:
             errors.append("Username already in use.")
         if len(form['username']) < 2:

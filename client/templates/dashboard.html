@@ -1,20 +1,25 @@
 {% extends './layout.html' %}
+{% block head %}<style>.wrapper{  background-image: url('../static/{{background.filename}}')}</style>{% endblock %}
 {% block title %}Dashboard{% endblock %}
 {% block body %}
 <div class='wrapper'>
-    {% if user in session %}
+    {% if 'user_id' in session %}
         <div class='header'>
-            <h5>Welcome {{user['first_name']}} {{user['last_name']}}!</h5>
+            <h2>Welcome {{user['username']}}!</h2>
             <div class="header_right">
-                <a href="{{ url_for('users:edit', user_id=user['id'])}}">My Account</a>
-                <a href="{{url_for('users:logout')}}">Logout</a>
+                <p>
+                    {% if user['admin_lvl'] == 2 %}
+                    <a href="{{url_for('admin_page')}}">Admin Page</a>  |
+                    {% endif %}
+                    <a href="{{url_for('users:logout')}}">Logout</a>
+                </p>
             </div><br>
         </div>
         {% else %}
             <div class='header'>
-                <h5>Welcome {{user['first_name']}} {{user['last_name']}}!</h5>
+                <h2>Welcome To QuinndittyArt!</h2>
                 <div class="header_right">
-                    <a href="{{url_for('users:login')}}">Login</a>
+                    <a href="{{url_for('users:login_and_registration')}}">Login or make a new account</a>
                 </div><br>      
             </div>
     {% endif %}
@@ -27,11 +32,13 @@
             </ul>
         {% endif %}
     {% endwith %}
-    <div class="Gallery">
-        <h5>Gallery</h5>
+    <div class="gallery">
+        <h2>Gallery</h2>
         {% for post in posts %}
-            <div class="post">
-                <a href="posts/post['id']">{{post['content']}}</a>
+            <div class="gallery_post">
+                <a href="posts/{{post['id']}}">
+                <img src="{{ url_for('static', filename=post.filename) }}" alt="{{post.title}}"><br>
+                {{post['title']}}</a>
             </div>
         {% endfor %}
     </div>

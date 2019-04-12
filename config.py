@@ -18,7 +18,7 @@ TEMPLATES_DIR = os.path.join(ROOT_DIR, 'client', 'templates')
 STATIC_DIR = os.path.join(ROOT_DIR, 'client', 'static')
 IMAGE_DIR = os.path.join(ROOT_DIR, 'client', 'static', 'images')
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = IMAGE_DIR
 
 app.template_folder = TEMPLATES_DIR
 app.static_folder = STATIC_DIR

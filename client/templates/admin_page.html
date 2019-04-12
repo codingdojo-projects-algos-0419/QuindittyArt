@@ -1,14 +1,27 @@
 {% extends './layout.html' %}
+{% block head %}<style>.wrapper{  background-image: url('../static/{{background.filename}}')}</style>{% endblock %}
 {% block title %}Admin Page{% endblock %}
 {% block body %}
 <div class="wrapper">
   <div class='header'>
-    <h5>Welcome {{user['username']}}!</h5>
+    <h2>Welcome {{user['username']}}!</h2>
     <div class="header_right">
-      <a href="{{ url_for('users:edit', user_id=user['id'])}}">My Account</a>
-      <a href="{{url_for('users:logout')}}">Logout</a>
+      <p>
+        <a href="{{url_for('dashboard')}}">Back</a>  |
+        <a href="{{url_for('posts:new_post')}}">Make A New Post</a>  |
+        <a href="{{url_for('users:logout')}}">Logout</a>
+      </p>
     </div><br>
   </div>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
+            <li class="error">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+  {% endwith %}
   <div class="user_list">
     <table>
       <th>
@@ -19,23 +32,40 @@
         </tr>
       </th>
       <tbody>
-        {% for user in users %}
+        {% for users in user_list %}
           <tr>
-            <td>{{user['id']}}</td>
-            <td>{{user['username']}}</td>
+            <td><p>{{users['id']}}</p></td>
+            <td><p>{{users['username']}}</p></td>
             <td>
-              {% if user['admin_lvl'] == 1 %}
-                <a href="{{url_for('users:admin_lvl_increase', user_id=user['id'])}}">Make admin</a>
+              <p>
+                {% if users['admin_lvl'] == 1 and users.id != user.id %}
+                <a href="{{url_for('admins:admin_lvl_increase', user_id=user['id'])}}">Make admin</a>  |
                 {% else %}
-                  <a href="{{url_for('users:admin_lvl_decrease', user_id=user['id']}}"></a>
-              {% endif %}
-              <a href="{{url_for('users:delete', user_id=user['id'])}}">Delete user</a>
+                <a href="{{url_for('admins:admin_lvl_decrease', user_id=user['id'])}}">Remove admin</a>  |
+                {% endif %}
+                <a href="{{url_for('admins:delete_user', user_id=user['id'])}}">Delete user</a>
+              </p>
             </td>
           </tr>
         {% endfor %}
       </tbody>
-    </table>
-    <form action="{{url_for('dashboard'" method="post"></form>
+    </table><br><br>
+    <h3>Upload a new background</h3>
+    <form action="{{url_for('admins:upload_background')}}" enctype=multipart/form-data method="post">
+      <label for="title">Title: </label>
+      <input type="text" name="title" required><br>
+      <input type="file" name="content" required><br>
+      <input type="submit" value="Upload">
+    </form>
+    <h3>Change the background</h3>
+    <form action="{{url_for('admins:change_background')}}" method="post">
+      <select name="background" required>
+        {% for background in backgrounds %}
+          <option value={{background.id}}>{{background.title}}</option>
+        {% endfor %}
+      </select>
+      <input type="submit" value="Change">
+    </form>
     </div>
 </div>
 {% endblock %}
