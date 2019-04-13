@@ -46,6 +46,8 @@ def create():
 
 def view_post(post_id):
         user = User.query.get(session['user_id'])
+        if post_id == 1:
+                return redirect('about_me')
         post = Post.query.get(post_id)
         background = Background.query.filter_by(current = 1).first()
         comments = Comment.query.filter_by(post_id=post_id)

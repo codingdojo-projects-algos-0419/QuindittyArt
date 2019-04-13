@@ -1,22 +1,44 @@
 {% extends './layout.html' %}
-{% block title %}{{post['title']}}{% endblock %}
+{% block head %}<style>.wrapper{  background-image: url('../static/{{background.filename}}')}</style>{% endblock %}
+{% block title %}About Me{% endblock %}
 {% block body %}
 <div class="wrapper">
-  {% if user in session %}
+  {% if 'user_id' in session %}
     <div class='header'>
-      <h5>Welcome {{user['username']}}!</h5>
+      <h2>Welcome {{user['username']}}!</h2>
       <div class="header_right">
-        <a href="{{ url_for('dashboard')}}">Back</a>
+        <a href="{{ url_for('dashboard')}}">Back</a>  |
         <a href="{{url_for('users:logout')}}">Logout</a>
       </div><br>
     </div>
-  {% endif %}
   {% else %}
     <div class='header'>
       <div class="header_right">
         <a href="{{url_for('users:login')}}">Login</a>
       </div><br>      
     </div>
-  {% endelse %}
-  {% if user['admin_lvl'] == 2 %}
-    <p></p>
+  {% endif %}
+  <div id="about_me">
+    <h2>About Me</h2>
+    <br>
+    {% if user.admin_lvl == 2 %}
+    <form action="{{url_for('update_about_me')}}" method="post">
+      <textarea name="text_content"cols="50" rows="5">
+        {{about_me.text_content}}
+      </textarea>
+      <input type="submit" value="Update">
+    </form>
+    {% endif %}
+    <p>{{about_me.text_content}}</p>
+    <div id="twitch-embed"></div>
+    <script src="https://embed.twitch.tv/embed/v1.js"></script>
+    <script type="text/javascript">
+      new Twitch.Embed("twitch-embed", {
+        width: 800,
+        height: 480,
+        channel: "quinditty"
+      });
+    </script>
+  </div>
+  </div>
+  {% endblock %}

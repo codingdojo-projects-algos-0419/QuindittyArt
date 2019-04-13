@@ -34,7 +34,7 @@
             {% endif %}
             <div class='comments'>
                 <form action="{{url_for('posts:comment', post_id=post.id)}}" method="post">
-                    <input type="text" name='content' required>
+                    <textarea name="content"cols="45" rows="2"></textarea>
                     <input type="submit" value="comment">
                 </form>
                 {% for comment in comments %}

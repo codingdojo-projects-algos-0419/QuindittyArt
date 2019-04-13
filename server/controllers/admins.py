@@ -61,9 +61,10 @@ def change_background():
   admin = User.query.get(session['user_id'])
   if admin.admin_lvl == 2:
     id = request.form['background']
-    current = Background.query.filter_by(current = 1)
-    current.current = 0
-    db.session.commit()
+    current = Background.query.filter_by(current = 1).all()
+    for i in current:
+      i.current = 0
+      db.session.commit()
     new = Background.query.filter_by(id=id).first()
     new.current = 1
     db.session.commit()
@@ -71,9 +72,17 @@ def change_background():
   return redirect(url_for('dashboard'))
 
 def delete_user(user_id):
-    admin = User.query.get(session['user_id'])
-    if admin.admin_lvl == 2:
-      user = User.query.get(user_id)
-      db.session.delete(user)
-      db.session.commit()
-    return redirect(url_for('admin_page'))
+  admin = User.query.get(session['user_id'])
+  if admin.admin_lvl == 2:
+    user = User.query.get(user_id)
+    db.session.delete(user)
+    db.session.commit()
+  return redirect(url_for('admin_page'))
+
+def update_about_me():
+  about_me = Post.query.get(1)
+  admin = User.query.get(session['user_id'])
+  if admin.admin_lvl == 2:
+    about_me.text_content = request.form['text_content']
+    db.session.commit()
+  return redirect(url_for('dashboard'))

@@ -2,8 +2,10 @@
   color: red;
 }
 .wrapper {
-  width: 99%;
+  width: 100%;
   min-height: 900px;
+  margin: 0px;
+  padding: 0px;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover; 
@@ -14,43 +16,33 @@
   padding: 10px;
   display: flex;
   align-items: center;
-  width: 970px;
+  width: 99%;
   height: auto;
   font-size: 1.25em;
 }
 
   .header_right {
+    align-self: flex-end;
     margin-left: auto;
-    margin-right: 0px;
+    margin-right: 30px;
+    padding: 10px;
+    background-color: rgba(94, 94, 94, 0.616);
+    color: whitesmoke;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    border-radius: 5%;
+  }
+
+  .header_right a {
+    color: whitesmoke;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    text-decoration: underline;
   }
 
   .header h2 {
     margin: 30px 10px 10px 60px;
+    color: whitesmoke;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
-
-.quote_list {
-  width: 500px;
-  height: auto;
-  margin: 10px;
-  padding: 10px;
-  display: inline-block;
-  text-align: center;
-  vertical-align: top;
-
-}
-  .quote {
-    width: 400px;
-    border: solid 1px black;
-    margin: 10px auto;
-    padding: 10px;
-  }
-
-    .quote p {
-      margin: 0px;
-      padding: 0px;
-      text-align: start;
-    }
-
 
   .button {
     background-color: #e9e9e9;
@@ -61,18 +53,6 @@
     display: inline-block;
     border: solid rgb(43, 43, 43) 1px;
     margin: 4px 2px;
-  }
-
-.quote_form {
-  margin: 10px 10px 10px 130px;
-  padding: 10px;
-  width: 300px;
-  text-align-last: right; 
-  display: inline-block;
-}
-  .quote_form h6 {
-    text-align: center;
-    text-align-last: center;
   }
 
 
@@ -92,35 +72,64 @@
   margin: 10px;
   padding: 10px;
   width: auto;
-  height: 100%;
+  min-height: 800px;
+  background-color: rgba(94, 94, 94, 0.911);
+  border-radius: 5%; 
 }
 
   .gallery h2 {
     text-align: center;
+    color: whitesmoke;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+
+  .gallery h5 {
+    text-align: center;
+    border-bottom: 1px solid black; 
+    color: whitesmoke;
+  }
+  
+  .gallery h5 a {
+    color: whitesmoke;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    text-decoration: underline;
   }
 
 .post {
   margin: 10px auto;
   padding: 10px;
   width: 85%;
-  background-color: darkgray;
+  background-color: rgba(94, 94, 94, 0.911);
   border-radius: 2%;
 }
   
   .post h5 {
     margin: 10px 0px 5px 45px;
+    color: whitesmoke;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
 
   }
   .post p {
     text-align-last: right;
+    color: whitesmoke;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
 
   .post h2 {
     text-align: center;
+    color: whitesmoke;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+
+  .post a {
+    text-decoration: underline;
+    color: whitesmoke;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
 
   .post img {
-    width: 90%;
+    width: 80%;
     height: auto;
     margin: 0px auto;
     display: block;
@@ -139,7 +148,8 @@
   }
 
   .gallery_post a {
-    color: black;
+    color: whitesmoke;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
 
 
@@ -148,10 +158,14 @@
   width: 75%;
 }
 
+  .comments textarea {
+    vertical-align: bottom;
+  }
+
   .comment {
-    width: 30%;
+    width: 50%;
     border: solid 1px black;
-    background-color: white;
+    background-color: rgba(87, 87, 87, 0.911);
   }
 
     .comment p {
@@ -163,22 +177,86 @@
 .user_list {
   margin: 10px;
   padding: 10px;
-  width: 75%;
+  width: 45%;
+  background-color: rgba(131, 131, 131, 0.911);
+  display: inline-block;
+  vertical-align: top;
 }
 
-  .user_list td {
-    border: solid black 1px;
-    width: 30%;
-    text-align: center;
+.user_list td {
+  border: solid black 1px;
+  width: 30%;
+  text-align: center;
+}
+
+.user_list p {
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+
+.user_list a {
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-decoration: underline;
   }
 
 .new_post {
-  width: 80%;
+  width: 30%;
   margin: 10px auto;
   padding: 10px;
+  background-color: rgba(131, 131, 131, 0.911);
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
   .new_post input {
     margin: 10px;
     padding: 10px;
   }
+
+.background_selection {
+  width: 45%;
+  background-color: rgba(131, 131, 131, 0.911);
+  margin: 10px;
+  padding: 10px;
+  display: inline-block;
+  vertical-align: top;
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#twitch-embed {
+  margin: 10px auto;
+  text-align: center;
+}
+
+#about_me {
+  margin: 10px;
+  padding: 10px;
+  width: auto;
+  background-color: rgba(94, 94, 94, 0.911);
+  border-radius: 5%; 
+}
+
+#about_me h2 {
+  text-align: center;
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  border-bottom: solid black 1px;
+}
+
+#about_me p {
+  text-align: center;
+  background-color: rgba(34, 34, 34, 0.863);
+  display: block;
+  width: 70%;
+  margin: 0px auto;
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-size: 1.5em;
+}
+
+#about_me textarea {
+  margin-left: 30px;
+  vertical-align: bottom;
+}

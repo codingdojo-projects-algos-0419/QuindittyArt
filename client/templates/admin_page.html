@@ -50,22 +50,24 @@
         {% endfor %}
       </tbody>
     </table><br><br>
+  </div>
+  <div class="background_selection">
     <h3>Upload a new background</h3>
-    <form action="{{url_for('admins:upload_background')}}" enctype=multipart/form-data method="post">
-      <label for="title">Title: </label>
-      <input type="text" name="title" required><br>
-      <input type="file" name="content" required><br>
-      <input type="submit" value="Upload">
-    </form>
-    <h3>Change the background</h3>
-    <form action="{{url_for('admins:change_background')}}" method="post">
-      <select name="background" required>
-        {% for background in backgrounds %}
+      <form action="{{url_for('admins:upload_background')}}" enctype=multipart/form-data method="post">
+        <label for="title">Title: </label>
+        <input type="text" name="title" required><br>
+        <input type="file" name="content" required><br>
+        <input type="submit" value="Upload">
+      </form>
+      <h3>Change the background</h3>
+      <form action="{{url_for('admins:change_background')}}" method="post">
+        <select name="background" required>
+          {% for background in backgrounds %}
           <option value={{background.id}}>{{background.title}}</option>
-        {% endfor %}
-      </select>
-      <input type="submit" value="Change">
-    </form>
-    </div>
+          {% endfor %}
+        </select>
+        <input type="submit" value="Change">
+      </form>
+  </div>
 </div>
 {% endblock %}
