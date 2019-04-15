@@ -18,7 +18,7 @@ def dashboard():
     if 'user_id' in session:
         user = User.query.get(session['user_id'])
         return render_template('dashboard.html', user=user, posts=posts)
-    return render_template('dashboard.html', posts=posts)
+    return render_template('dashboard.html')
 
 def about_me():
     about_me = Post.query.get(1)
