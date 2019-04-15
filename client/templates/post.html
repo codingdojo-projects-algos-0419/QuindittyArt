@@ -11,6 +11,7 @@
                     {% if user['admin_lvl'] == 2 %}
                     <a href="{{url_for('admin_page')}}">Admin Page</a>  |
                     {% endif %}
+                    <a href="{{url_for('dashboard')}}">Back</a>  |
                     <a href="{{ url_for('users:account_page', user_id=user['id'])}}">My Account</a>  |
                     <a href="{{url_for('users:logout')}}">Logout</a>
                 </p>
@@ -20,6 +21,7 @@
             <div class='header'>
                 <h2>Welcome To QuinndittyArt!</h2>
                 <div class="header_right">
+                    <a href="{{url_for('dashboard')}}">Back</a>  |
                     <a href="{{url_for('users:login_and_registration')}}">Login or make a new account</a>
                 </div><br>      
             </div>
@@ -31,8 +33,12 @@
             <h5>{{post['text_content']}}</h5>
             <p>{{post.likes()}} likes
             {% if 'user_id' in session %}
-                {% if post.not_liked and user['admin_lvl'] == 1 %}
+                {% if user['admin_lvl'] == 1 %}
+                {% if post in user.posts_this_user_likes %}
+                    <a href="{{url_for('posts:remove_like', post_id=post.id)}}" class="button">Unlike</a></td>
+                    {% else %}
                     <a href="{{url_for('posts:like', post_id=post.id)}}" class="button">Like</a></td>
+                    {% endif %}
                 {% endif %}
             {% endif %}
             </p>
@@ -42,16 +48,20 @@
                 {% endif %}
             {% endif %}
             <div class='comments'>
-                <form action="{{url_for('posts:comment', post_id=post.id)}}" method="post">
-                    <textarea name="content"cols="45" rows="2"></textarea>
-                    <input type="submit" value="comment">
-                </form>
+                {% if 'user_id' in session %}
+                    <form action="{{url_for('posts:comment', post_id=post.id)}}" method="post">
+                        <textarea name="content"cols="45" rows="2"></textarea>
+                        <input type="submit" value="comment">
+                    </form>
+                {% endif %}
                 {% for comment in comments %}
                 <div class='comment'>
                     <p>{{comment.user.username}} says:</p>
                     <p>{{comment.content}}<br>
-                        {% if user['admin_lvl'] == 2 or user['id'] == comment['user_id'] %}
-                        <a href="{{url_for('posts:delete', comment_id=comment.id, post_id=post.id)}}">Delete</a>
+                        {% if 'user_id' in session %}
+                            {% if user['admin_lvl'] == 2 or user['id'] == comment['user_id'] %}
+                                <a href="{{url_for('posts:delete_comment', comment_id=comment.id, post_id=post.id)}}">Delete</a>
+                            {% endif %}
                         {% endif %}
                     </p>
                 </div>

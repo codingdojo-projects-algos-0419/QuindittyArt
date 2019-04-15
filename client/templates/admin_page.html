@@ -39,12 +39,14 @@
             <td>
               <p>
                 {% if users.id != session['user_id'] %}
-                  {% if users.admin_lvl == 1 and users.id%}
-                    <a href="{{url_for('admins:admin_lvl_increase', user_id=user['id'])}}">Make admin</a>  |
-                  {% elif users.admin_lvl == 2 and users.id %}
-                    <a href="{{url_for('admins:admin_lvl_decrease', user_id=user['id'])}}">Remove admin</a>  |
+                  {% if users.admin_lvl == 1 and users.id and users.id != 1 %}
+                    <a href="{{url_for('admins:admin_lvl_increase', user_id=users['id'])}}">Make admin</a>  |
+                  {% elif users.admin_lvl == 2 and users.id and users.id != 1 %}
+                    <a href="{{url_for('admins:admin_lvl_decrease', user_id=users['id'])}}">Remove admin</a>  |
                   {% endif %}
-                    <a href="{{url_for('admins:delete_user', user_id=user['id'])}}">Delete user</a>
+                    {% if users.id != 1 %}
+                      <a href="{{url_for('admins:delete_user', user_id=user['id'])}}">Delete user</a>
+                    {% endif %}
                 {% endif %}
               </p>
             </td>

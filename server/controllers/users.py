@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, session, url_for, flash
 from sqlalchemy import func
+from app import db
 from server.models.posts import Post
 from server.models.users import User
 from server.models.backgrounds import Background
@@ -47,11 +48,13 @@ def account_page(user_id):
     background = Background.query.filter_by(current = 1).first()
     content_background = Post.query.get(2)
     backgrounds = "<style> .wrapper{background-image: url('../.."+ url_for('static', filename=background.filename) + "') } .edit_form{ background-color: " + content_background.text_content + " } .gallery{ background-color: " + content_background.text_content + " } .header_right{ background-color: " + content_background.text_content + " }</style>"
-    return render_template('account_page.html', current_user=current_user, user=user, comments=comments, backgrounds=backgrounds)
+    if current_user.id == user.id or current_user.admin_lvl == 2:
+        return render_template('account_page.html', current_user=current_user, user=user, comments=comments, backgrounds=backgrounds)
+    return redirect(url_for('dashboard'))
 
 def editing(user_id):
     user = User.query.get(user_id)
-    errors = User.validate(request.form)
+    errors = User.edit_validate(request.form)
     if errors:
         for error in errors:
                 flash(error)

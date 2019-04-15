@@ -32,10 +32,10 @@ def admin_page():
 def admin_lvl_increase(user_id):
   admin = User.query.get(session['user_id'])
   if admin.admin_lvl == 2:
-      user = User.query.get(user_id)
-      user.admin_lvl = 2
-      db.session.commit()
-      return redirect(url_for('admin_page'))
+    user = User.query.get(user_id)
+    user.admin_lvl = 2
+    db.session.commit()
+    return redirect(url_for('admin_page'))
   return redirect(url_for('dashboard'))
 
 def admin_lvl_decrease(user_id):

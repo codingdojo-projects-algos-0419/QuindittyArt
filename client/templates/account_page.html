@@ -30,7 +30,7 @@
   {% endwith %}
   <div class='edit_form'>
     {% if current_user.id == user.id or current_user.admin_lvl == 2 %}
-      <h5>Edit username</h5>
+      <h5>Edit login/username</h5>
       <form action="editing" method="post">
         <label for="username">Username</label>
         <input type="text" name="username" value="{{user['username']}}" required><br>
@@ -39,11 +39,11 @@
     {% endif %}
   </div>
   <div class="gallery">
-      <h2>Posts user has liked</h2>
+      <h2>Posts you have liked</h2>
       <div class="gallery_post_list">
           {% for post in user.posts_this_user_likes %}
               <div class="gallery_post">
-                  <a href="posts/{{post['id']}}">
+                  <a href="{{url_for('posts:view_post', post_id=post.id)}}">
                   <img src="{{ url_for('static', filename=post.filename) }}" alt="{{post.title}}"><br>
                   {{post['title']}}</a>
               </div>

@@ -17,8 +17,8 @@ class User(db.Model):
     updated_at = db.Column(
         db.DateTime, server_default=func.now(), onupdate=func.now()
     )
-    users_comments = db.relationship('Comment', back_populates='user')
-    posts_this_user_likes = db.relationship('Post', secondary=likes_table)
+    users_comments = db.relationship('Comment', back_populates='user', cascade='all')
+    posts_this_user_likes = db.relationship('Post', secondary=likes_table, cascade='all')
 
 
     def __repr__(self):
@@ -44,7 +44,19 @@ class User(db.Model):
             errors.append('Passwords must match')
 
         return errors
-    
+
+    @classmethod
+    def edit_validate(cls, form):
+        errors = []
+        existing_username = cls.query.filter_by(username=form['username']).first()
+        if existing_username:
+            errors.append("Username already in use.")
+        if len(form['username']) < 2:
+            errors.append("Username must be at least 2 characters long.")
+        if len(form['username']) < 2:
+            errors.append("Username must be at least 2 characters long.")
+        return errors
+
     @classmethod
     def create(cls, form):
         pw_hash = bcrypt.generate_password_hash(form['password'])

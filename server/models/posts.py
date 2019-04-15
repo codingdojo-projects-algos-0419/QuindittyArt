@@ -23,7 +23,7 @@ class Post(db.Model):
             "posts", cascade="all, delete-orphan"
             )
     )
-    post_comments = db.relationship('Comment', back_populates='post')
+    post_comments = db.relationship('Comment', back_populates='post', cascade='all')
     users_who_like_this_post = db.relationship('User', secondary=likes_table, cascade='all')
 
     def not_liked(self):

@@ -57,6 +57,8 @@ def view_post(post_id):
         content_background = Post.query.get(2)
         backgrounds = "<style> .wrapper{background-image: url('.."+ url_for('static', filename=background.filename) + "') } .post{ background-color: " + content_background.text_content + " } .header_right{ background-color: " + content_background.text_content + " }</style>"
         comments = Comment.query.filter_by(post_id=post_id)
+        if post.id == 1 or post.id == 2:
+                return redirect(url_for('dashboard'))
         if 'user_id' in session:
                 user = User.query.get(session['user_id'])
                 return render_template('post.html', user=user, post=post, backgrounds=backgrounds, comments=comments)
@@ -68,6 +70,13 @@ def like(post_id):
         user = User.query.get(session['user_id'])
         post = Post.query.get(post_id)
         post.users_who_like_this_post.append(user)
+        db.session.commit()
+        return redirect(url_for('posts:view_post', post_id=post_id))
+
+def remove_like(post_id):
+        user = User.query.get(session['user_id'])
+        post = Post.query.get(post_id)
+        post.users_who_like_this_post.remove(user)
         db.session.commit()
         return redirect(url_for('posts:view_post', post_id=post_id))
 
@@ -85,7 +94,9 @@ def comment(post_id):
         return redirect(url_for('posts:view_post', post_id=post_id))
 
 def delete_comment(comment_id, post_id):
-        comment = Comment.query.filter_by(id=comment_id).first()
-        db.session.delete(comment)
-        db.session.commit()
+        comment = Comment.query.get(comment_id)
+        admin = User.query.get(session['user_id'])
+        if admin.admin_lvl == 2 or admin.id == comment.user_id:
+                db.session.delete(comment)
+                db.session.commit()
         return redirect(url_for('posts:view_post', post_id=post_id))
