@@ -7,18 +7,22 @@
         <div class='header'>
             <h2>Welcome {{user['username']}}!</h2>
             <div class="header_right">
-                <a href="{{url_for('dashboard')}}">Back</a>  |
-                <a href="{{url_for('users:account_page', user_id=user['id'])}}">My Account</a>  |
-                <a href="{{url_for('users:logout')}}">Logout</a>
+                <p>
+                    {% if user['admin_lvl'] == 2 %}
+                    <a href="{{url_for('admin_page')}}">Admin Page</a>  |
+                    {% endif %}
+                    <a href="{{ url_for('users:account_page', user_id=user['id'])}}">My Account</a>  |
+                    <a href="{{url_for('users:logout')}}">Logout</a>
+                </p>
             </div><br>
         </div>
-    {% else %}
-        <div class='header'>
-            <div class="header_right">
-                <a href="{{url_for('dashboard')}}">Back</a>  |
-                <a href="{{url_for('users:login')}}">Login</a>
-            </div><br>      
-        </div>
+        {% else %}
+            <div class='header'>
+                <h2>Welcome To QuinndittyArt!</h2>
+                <div class="header_right">
+                    <a href="{{url_for('users:login_and_registration')}}">Login or make a new account</a>
+                </div><br>      
+            </div>
     {% endif %}
     <div class="main">
         <div class="post">
@@ -26,12 +30,16 @@
             <img src="{{url_for('static', filename=post.filename)}}" alt="">
             <h5>{{post['text_content']}}</h5>
             <p>{{post.likes()}} likes
-            {% if post.not_liked and user['admin_lvl'] == 1 %}
-                <a href="{{url_for('posts:like', post_id=post.id)}}" class="button">Like</a></td>
+            {% if 'user_id' in session %}
+                {% if post.not_liked and user['admin_lvl'] == 1 %}
+                    <a href="{{url_for('posts:like', post_id=post.id)}}" class="button">Like</a></td>
+                {% endif %}
             {% endif %}
             </p>
-            {% if user['admin_lvl'] == 2 %}
-                <p><a href="{{url_for('posts:delete', post_id=post.id)}}">Delete</a></p>
+            {% if 'user_id' in session %}
+                {% if user['admin_lvl'] == 2 %}
+                    <p><a href="{{url_for('posts:delete', post_id=post.id)}}">Delete</a></p>
+                {% endif %}
             {% endif %}
             <div class='comments'>
                 <form action="{{url_for('posts:comment', post_id=post.id)}}" method="post">

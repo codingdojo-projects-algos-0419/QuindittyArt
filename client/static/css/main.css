@@ -127,37 +127,38 @@
   background-color: rgba(94, 94, 94, 0.911);
   border-radius: 2%;
 }
+
+.post h5 {
+  margin: 10px 0px 5px 45px;
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   
-  .post h5 {
-    margin: 10px 0px 5px 45px;
-    color: whitesmoke;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  
+}
+.post p {
+  text-align-last: right;
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
 
+.post h2 {
+  text-align: center;
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
 
-  }
-  .post p {
-    text-align-last: right;
-    color: whitesmoke;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  }
+.post a {
+  text-decoration: underline;
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
 
-  .post h2 {
-    text-align: center;
-    color: whitesmoke;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  }
-
-  .post a {
-    text-decoration: underline;
-    color: whitesmoke;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  }
-
-  .post img {
-    width: 80%;
-    margin: 0px auto;
-    display: block;
-  }
+.post img {
+  width: 80%;
+  margin: 0px auto;
+  display: block;
+  max-height: 98vh;
+}
 
 .gallery_post_list {
   width: 95%;

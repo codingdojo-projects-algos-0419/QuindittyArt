@@ -50,7 +50,6 @@ def create():
         return redirect(url_for('posts:new_post'))
 
 def view_post(post_id):
-        user = User.query.get(session['user_id'])
         if post_id == 1 or post_id == 2:
                 return redirect('dashboard')
         post = Post.query.get(post_id)
@@ -58,7 +57,10 @@ def view_post(post_id):
         content_background = Post.query.get(2)
         backgrounds = "<style> .wrapper{background-image: url('.."+ url_for('static', filename=background.filename) + "') } .post{ background-color: " + content_background.text_content + " } .header_right{ background-color: " + content_background.text_content + " }</style>"
         comments = Comment.query.filter_by(post_id=post_id)
-        return render_template('post.html', user=user, post=post, backgrounds=backgrounds, comments=comments)
+        if 'user_id' in session:
+                user = User.query.get(session['user_id'])
+                return render_template('post.html', user=user, post=post, backgrounds=backgrounds, comments=comments)
+        return render_template('post.html', post=post, backgrounds=backgrounds, comments=comments)
 
 
 
