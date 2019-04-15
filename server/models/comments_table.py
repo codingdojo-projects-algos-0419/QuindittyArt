@@ -22,3 +22,7 @@ class Comment(db.Model):
     comment = cls(user_id=session['user_id'], post_id=post_id, content=content)
     db.session.add(comment)
     db.session.commit()
+
+  @classmethod
+  def comments_from_user(cls, user_id):
+    return cls.query.filter_by(user_id=user_id).order_by(cls.created_at.desc()).all()

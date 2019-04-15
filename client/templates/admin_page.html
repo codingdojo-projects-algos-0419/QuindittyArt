@@ -1,5 +1,5 @@
 {% extends './layout.html' %}
-{% block head %}<style>.wrapper{  background-image: url('../static/{{background.filename}}')}</style>{% endblock %}
+{% block head %}{{backgrounds|safe}}{% endblock %}
 {% block title %}Admin Page{% endblock %}
 {% block body %}
 <div class="wrapper">
@@ -26,9 +26,9 @@
     <table>
       <th>
         <tr>
-          <td>User ID</td>
-          <td>Username</td>
-          <td>Actions</td>
+          <td><p>User ID</p></td>
+          <td><p>Username</p></td>
+          <td><p>Actions</p></td>
         </tr>
       </th>
       <tbody>
@@ -38,12 +38,14 @@
             <td><p>{{users['username']}}</p></td>
             <td>
               <p>
-                {% if users['admin_lvl'] == 1 and users.id != user.id %}
-                <a href="{{url_for('admins:admin_lvl_increase', user_id=user['id'])}}">Make admin</a>  |
-                {% else %}
-                <a href="{{url_for('admins:admin_lvl_decrease', user_id=user['id'])}}">Remove admin</a>  |
+                {% if users.id != session['user_id'] %}
+                  {% if users.admin_lvl == 1 and users.id%}
+                    <a href="{{url_for('admins:admin_lvl_increase', user_id=user['id'])}}">Make admin</a>  |
+                  {% elif users.admin_lvl == 2 and users.id %}
+                    <a href="{{url_for('admins:admin_lvl_decrease', user_id=user['id'])}}">Remove admin</a>  |
+                  {% endif %}
+                    <a href="{{url_for('admins:delete_user', user_id=user['id'])}}">Delete user</a>
                 {% endif %}
-                <a href="{{url_for('admins:delete_user', user_id=user['id'])}}">Delete user</a>
               </p>
             </td>
           </tr>
@@ -59,13 +61,19 @@
         <input type="file" name="content" required><br>
         <input type="submit" value="Upload">
       </form>
-      <h3>Change the background</h3>
+      <h3>Change the main image background</h3>
       <form action="{{url_for('admins:change_background')}}" method="post">
         <select name="background" required>
-          {% for background in backgrounds %}
-          <option value={{background.id}}>{{background.title}}</option>
+          {% for background in available_backgrounds %}
+            <option value={{background.id}}>{{background.title}}</option>
           {% endfor %}
         </select>
+        <input type="submit" value="Change">
+      </form>
+      <h3>Change the content background color tint</h3>
+      <form action="{{url_for('admins:change_content_background')}}" method="post">
+        <label for="text_content">Color in RGBA format (i.e. rgba(94, 94, 94, 0.911))</label>
+        <input type="text" name="text_content" placeholder="rgba(94, 94, 94, 0.911)">
         <input type="submit" value="Change">
       </form>
   </div>

@@ -1,5 +1,5 @@
 {% extends './layout.html' %}
-{% block head %}<style>.wrapper{  background-image: url('../static/{{background.filename}}')}</style>{% endblock %}
+{% block head %}{{backgrounds|safe}}{% endblock %}
 {% block title %}Admin Page{% endblock %}
 {% block body %}
 <div class="wrapper">

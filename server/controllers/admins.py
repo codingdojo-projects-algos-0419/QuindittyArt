@@ -16,26 +16,34 @@ def allowed_file(filename):
 
 def admin_page():
   user = User.query.get(session['user_id'])
-  backgrounds = Background.query.filter_by(current = 0).all()
+  available_backgrounds = Background.query.filter_by(current = 0).all()
   background = Background.query.filter_by(current = 1).first()
+  content_background = Post.query.get(2)
   if user.admin_lvl == 2:
-      user_list = User.query.all()
-      return render_template('admin_page.html', user=user, user_list=user_list, backgrounds=backgrounds, background=background)
+    user_list = User.query.all()
+    if available_backgrounds:
+      if background and content_background:
+        backgrounds = "<style> .wrapper{background-image: url('.."+ url_for('static', filename=background.filename) + "') } .user_list{ background-color: " + content_background.text_content + " } .background_selection{ background-color: " + content_background.text_content + " } .header_right{ background-color: " + content_background.text_content + " }</style>"
+        return render_template('admin_page.html', user=user, user_list=user_list, available_backgrounds=available_backgrounds, backgrounds=backgrounds)
+      return render_template('admin_page.html', user=user, user_list=user_list, available_backgrounds=available_backgrounds)
+    return render_template('admin_page.html', user=user, user_list=user_list)
   return redirect(url_for('dashboard'))
 
 def admin_lvl_increase(user_id):
   admin = User.query.get(session['user_id'])
-  if admin['admin_lvl'] == 2:
+  if admin.admin_lvl == 2:
       user = User.query.get(user_id)
-      user.admin_lvl_increase()
+      user.admin_lvl = 2
+      db.session.commit()
       return redirect(url_for('admin_page'))
   return redirect(url_for('dashboard'))
 
 def admin_lvl_decrease(user_id):
   admin = User.query.get(session['user_id'])
-  if admin['admin_lvl'] == 2:
+  if admin.admin_lvl == 2:
       user = User.query.get(user_id)
-      user.admin_lvl_decrease()
+      user.admin_lvl = 1
+      db.session.commit()
       return redirect(url_for('admin_page'))
   return redirect(url_for('dashboard'))
 
@@ -84,5 +92,13 @@ def update_about_me():
   admin = User.query.get(session['user_id'])
   if admin.admin_lvl == 2:
     about_me.text_content = request.form['text_content']
+    db.session.commit()
+  return redirect(url_for('about_me'))
+
+def change_content_background():
+  content_background = Post.query.get(2)
+  admin = User.query.get(session['user_id'])
+  if admin.admin_lvl == 2:
+    content_background.text_content = request.form['text_content']
     db.session.commit()
   return redirect(url_for('dashboard'))

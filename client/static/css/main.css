@@ -3,16 +3,16 @@
 }
 .wrapper {
   width: 100%;
-  min-height: 900px;
+  min-height: 100vh;
   margin: 0px;
-  padding: 0px;
+  padding: 10px;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover; 
   background-position: center top;
 }
 .header {
-  margin: 10px;
+  margin: 0px 10px;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -31,8 +31,9 @@
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     border-radius: 5%;
   }
-
+  
   .header_right a {
+    vertical-align: top;
     color: whitesmoke;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     text-decoration: underline;
@@ -55,6 +56,19 @@
     margin: 4px 2px;
   }
 
+.new_account_form {
+  width: 20%;
+  height: 150px;
+  display: inline-block;
+  vertical-align: top;
+  text-align-last: right;
+  margin: 80px;
+  padding: 20px;
+  border-radius: 5%;
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+  
 
 #stats {
   margin: 10px;
@@ -64,17 +78,27 @@
 .edit_form {
   width: 400px;
   margin: 10px;
+  margin-left: 40px;
   padding: 10px;
-  text-align-last: right;
+  border-radius: 5%;
+  color: whitesmoke;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
+  .edit_form form {
+    margin: 0px auto;
+    text-align-last: right;
+    color: whitesmoke;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+
 .gallery {
-  margin: 10px;
+  margin: 10px auto;
   padding: 10px;
-  width: auto;
+  width: 90%;
   min-height: 800px;
-  background-color: rgba(94, 94, 94, 0.911);
   border-radius: 5%; 
+  display: flex-block;
 }
 
   .gallery h2 {
@@ -90,6 +114,7 @@
   }
   
   .gallery h5 a {
+    margin-bottom: 10px; 
     color: whitesmoke;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     text-decoration: underline;
@@ -130,24 +155,32 @@
 
   .post img {
     width: 80%;
-    height: auto;
     margin: 0px auto;
     display: block;
   }
 
+.gallery_post_list {
+  width: 95%;
+  margin: 0px auto;
+}
+
+
 .gallery_post {
-  border: solid 1px black;
-  width: 25%;
-  height: auto;
+  width: 19%;
+  height: 20vh;
   text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  margin: 4px auto;
 }
   .gallery_post img {
     width: 90%;
-    height: auto;
+    max-height: 85%; 
     margin: 0px auto;
   }
 
   .gallery_post a {
+    margin: 0px auto;
     color: whitesmoke;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
@@ -175,13 +208,17 @@
     }
 
 .user_list {
-  margin: 10px;
+  margin: 10px 20px 10px 40px;
   padding: 10px;
   width: 45%;
-  background-color: rgba(131, 131, 131, 0.911);
   display: inline-block;
   vertical-align: top;
 }
+
+  .user_list table {
+    width: 95%;
+    margin: 5px auto;
+  }
 
 .user_list td {
   border: solid black 1px;
@@ -202,7 +239,7 @@
 
 .new_post {
   width: 30%;
-  margin: 10px auto;
+  margin: 30px;
   padding: 10px;
   background-color: rgba(131, 131, 131, 0.911);
   color: whitesmoke;
@@ -234,8 +271,7 @@
   margin: 10px;
   padding: 10px;
   width: auto;
-  background-color: rgba(94, 94, 94, 0.911);
-  border-radius: 5%; 
+  border-radius: 5%;
 }
 
 #about_me h2 {

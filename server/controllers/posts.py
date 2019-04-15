@@ -17,11 +17,16 @@ def allowed_file(filename):
 
 
 def new_post():
-        user = User.query.get(session['user_id'])
         background = Background.query.filter_by(current = 1).first()
-        if user.admin_lvl == 2:
-                return render_template('new_post.html', user=user, background=background)
+        content_background = Post.query.get(2)
+        admin = User.query.get(session['user_id'])
+        if admin.admin_lvl == 2:
+          if background and content_background:
+            backgrounds = "<style> .wrapper{background-image: url('.."+ url_for('static', filename=background.filename) + "') } .new_post{ background-color: " + content_background.text_content + " } .header_right{ background-color: " + content_background.text_content + " }</style>"
+            return render_template('new_post.html', backgrounds=backgrounds)
+          return render_template('new_post.html')
         return redirect(url_for('dashboard'))
+
 
 def create():
         if 'content' not in request.files:
@@ -46,12 +51,14 @@ def create():
 
 def view_post(post_id):
         user = User.query.get(session['user_id'])
-        if post_id == 1:
-                return redirect('about_me')
+        if post_id == 1 or post_id == 2:
+                return redirect('dashboard')
         post = Post.query.get(post_id)
         background = Background.query.filter_by(current = 1).first()
+        content_background = Post.query.get(2)
+        backgrounds = "<style> .wrapper{background-image: url('.."+ url_for('static', filename=background.filename) + "') } .post{ background-color: " + content_background.text_content + " } .header_right{ background-color: " + content_background.text_content + " }</style>"
         comments = Comment.query.filter_by(post_id=post_id)
-        return render_template('post.html', user=user, post=post, background=background, comments=comments)
+        return render_template('post.html', user=user, post=post, backgrounds=backgrounds, comments=comments)
 
 
 
@@ -60,7 +67,7 @@ def like(post_id):
         post = Post.query.get(post_id)
         post.users_who_like_this_post.append(user)
         db.session.commit()
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('posts:view_post', post_id=post_id))
 
 
 def delete(post_id):

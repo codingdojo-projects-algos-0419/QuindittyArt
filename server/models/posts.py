@@ -63,7 +63,5 @@ class Post(db.Model):
 
 
     @classmethod
-    def get_posts_from_users(cls, user_ids=None):
-        if not user_ids:
-            return cls.query.order_by(cls.created_at.desc()).all()
-        return cls.query.filter(cls.user_id.in_(user_ids)).order_by(cls.created_at.desc()).all()
+    def realposts(cls):
+        return cls.query.filter(cls.id !=1, cls.id !=2).order_by(cls.created_at.desc()).all()

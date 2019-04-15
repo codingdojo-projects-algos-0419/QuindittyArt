@@ -10,7 +10,7 @@ likes_table=db.Table('likes',
         primary_key=True
     ),
     db.Column(
-        'user_id', db.Integer, db.ForeignKey('users.id'), 
+        'user_id', db.Integer, db.ForeignKey('users.id', ondelete='cascade'), 
         primary_key=True
     ),
     db.Column(

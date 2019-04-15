@@ -1,5 +1,5 @@
 {% extends './layout.html' %}
-{% block head %}<style>.wrapper{  background-image: url('../static/{{background.filename}}')}</style>{% endblock %}
+{% block head %}{{backgrounds|safe}}{% endblock %}
 {% block title %}About Me{% endblock %}
 {% block body %}
 <div class="wrapper">
@@ -7,21 +7,27 @@
     <div class='header'>
       <h2>Welcome {{user['username']}}!</h2>
       <div class="header_right">
-        <a href="{{ url_for('dashboard')}}">Back</a>  |
-        <a href="{{url_for('users:logout')}}">Logout</a>
+        <p>
+          {% if user['admin_lvl'] == 2 %}
+          <a href="{{url_for('admin_page')}}">Admin Page</a>  |
+          {% endif %}
+          <a href="{{url_for('users:account_page', user_id=user['id'])}}">My Account</a>  |
+          <a href="{{url_for('users:logout')}}">Logout</a>
+        </p>
       </div><br>
     </div>
   {% else %}
     <div class='header'>
+      <h2>Welcome To QuinndittyArt!</h2>
       <div class="header_right">
-        <a href="{{url_for('users:login')}}">Login</a>
+        <a href="{{url_for('users:login_and_registration')}}">Login or make a new account</a>
       </div><br>      
     </div>
   {% endif %}
   <div id="about_me">
     <h2>About Me</h2>
     <br>
-    {% if user.admin_lvl == 2 %}
+    {% if admin %}
     <form action="{{url_for('update_about_me')}}" method="post">
       <textarea name="text_content"cols="50" rows="5">
         {{about_me.text_content}}
@@ -29,7 +35,7 @@
       <input type="submit" value="Update">
     </form>
     {% endif %}
-    <p>{{about_me.text_content}}</p>
+    <p>{{about_me.text_content}}</p><br>
     <div id="twitch-embed"></div>
     <script src="https://embed.twitch.tv/embed/v1.js"></script>
     <script type="text/javascript">

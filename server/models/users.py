@@ -65,7 +65,9 @@ class User(db.Model):
         return (False, "Username or password incorrect.")
 
     def admin_lvl_increase(self):
-        self.admin_lvl = 2;
+        self.admin_lvl = 2
+        db.session.commit()
 
     def admin_lvl_decrease(self):
-        self.admin_lvl = 1;
+        self.admin_lvl = 1
+        db.session.commit()
