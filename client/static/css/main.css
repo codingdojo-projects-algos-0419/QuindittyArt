@@ -154,7 +154,7 @@
 }
 
 .post img {
-  width: 80%;
+  max-width: 80%;
   margin: 0px auto;
   display: block;
   max-height: 98vh;
