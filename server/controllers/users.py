@@ -27,10 +27,16 @@ def create():
 def username():
     found = False
     result = User.query.filter_by(username=request.form['username']).first()
-    print(result)
     if result:
         found = True
     return render_template('partials/username.html', found = found)
+
+def loginUsername():
+    found = False
+    result = User.query.filter_by(username=request.form['username']).first()
+    if result:
+        found = True
+    return render_template('partials/loginUsername.html', found = found)
 
 def login():
     valid, response = User.login_helper(request.form)
