@@ -5,3 +5,4 @@ migrations/
 helpers.txt
 *.png
 *.jpg
+deploy_helpers.txt
