@@ -19,4 +19,4 @@ SQLAlchemy-ImageAttach==1.1.0
 style==1.1.0
 update==0.0.1
 Wand==0.5.2
-Werkzeug==0.14.1
+Werkzeug==0.15.3
